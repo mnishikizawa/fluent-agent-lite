@@ -9,7 +9,7 @@
 
 Name:           fluent-agent-lite
 Version:        %{version}
-Release:        original
+Release:        original%{?dist}
 Summary:        Log transfer agent service over fluentd protocol
 
 Group:          Applications/System
@@ -24,6 +24,7 @@ BuildRoot:      %{_tmppath}/%{name}-root
 
 ExclusiveArch:  x86_64 i386
 AutoReq:        no
+BuildRequires:	perl-ExtUtils-Manifest, perl-ExtUtils-MakeMaker, perl-CPAN-Meta, perl-Time-Piece, perl-JSON-XS
 
 %description
 Log transfer agent service over fluentd protocol.
@@ -35,6 +36,7 @@ Log transfer agent service over fluentd protocol.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+export QA_SKIP_BUILD_ROOT=1
 env PREFIX=$RPM_BUILD_ROOT PERL_PATH=%{build_perl_path} bin/install.sh
 # install -m 644 $RPM_SOURCE_DIR/fluent-agent-lite.conf $RPM_BUILD_ROOT/etc/fluent-agent-lite.conf
 # install -m 644 $RPM_SOURCE_DIR/fluent-agent.servers.primary $RPM_BUILD_ROOT/etc/fluent-agent.servers.primary
